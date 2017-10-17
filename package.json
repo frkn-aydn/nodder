@@ -1,0 +1,19 @@
+{
+  "name": "nodder",
+  "version": "1.0.0",
+  "description": "Nodder is a free and open-source content management system (CMS) based on Nodejs and MySQL",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "nodder",
+    "content management",
+    "CMS",
+    "nodejs",
+    "mysql"
+  ],
+  "author": "Muhammed Furkan Aydın <furkanaydin@turkdeveloper.com>",
+  "license": "GNU GPLv3",
+  "dependencies": {}
+}
