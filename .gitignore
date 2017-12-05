@@ -16,3 +16,7 @@ yarn.lock
 *.ntvs*
 *.njsproj
 *.sln
+
+#Webpack output
+server/public
+server/views
