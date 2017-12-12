@@ -1,3 +1,3 @@
-console.log("Demo method for secont.html")
+require('offline-plugin/runtime').install();
 
 import "../css/other-page.css";
