@@ -135,11 +135,13 @@ webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({
 }))
 
 // copy custom static assets
-webpackConfig.plugins.push(new CopyWebpackPlugin([{
-	from: path.resolve(__dirname, '../client/static'),
-	to: path.resolve(__dirname, "../server/public"),
-	ignore: ['.*']
-}]))
+if (fs.readdirSync(path.resolve(__dirname, '../client/static')).length) {
+	webpackConfig.plugins.push(new CopyWebpackPlugin([{
+		from: path.resolve(__dirname, '../client/static'),
+		to: path.resolve(__dirname, "../server/public"),
+		ignore: ['.*']
+	}]))
+}
 
 
 const targetFolder = path.resolve(__dirname, "../client/");
@@ -186,8 +188,8 @@ webpackConfig.plugins.push(new OfflinePlugin({
 	relativePaths: false,
 	ServiceWorker: {
 		minify: true,
-		cacheName : "Housepecker",
-		navigateFallbackURL : "/",
+		cacheName: "Housepecker",
+		navigateFallbackURL: "/",
 		events: true
 	},
 	AppCache: {
