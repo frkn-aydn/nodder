@@ -7,6 +7,7 @@ const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const OfflinePlugin = require('offline-plugin');
 const path = require("path");
 const fs = require("fs")
 //  Useful functions
@@ -28,7 +29,11 @@ const webpackConfig = {
 		new CleanWebpackPlugin([
 			"public",
 			"views"
-		], {root: path.resolve(__dirname, "../server"),dry: false, verbose: true})
+		], {
+			root: path.resolve(__dirname, "../server"),
+			dry: false,
+			verbose: true
+		})
 	],
 	module: {
 		rules: [{
@@ -58,7 +63,16 @@ const webpackConfig = {
 			},
 			{
 				test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-				loader: 'url-loader'
+				use: [
+					'file-loader',
+					{
+						loader: 'image-webpack-loader',
+						options: {
+							name: "img/[name].[hash:7].[ext]",
+							outputPath: 'img/'
+						},
+					},
+				],
 			},
 			{
 				test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
@@ -127,14 +141,6 @@ webpackConfig.plugins.push(new CopyWebpackPlugin([{
 	ignore: ['.*']
 }]))
 
-// service worker caching
-webpackConfig.plugins.push(new SWPrecacheWebpackPlugin({
-	cacheId: '{{ name }}',
-	filename: 'service-worker.js',
-	staticFileGlobs: ['client/**/*.{js,html,css}'],
-	minify: true,
-	stripPrefix: 'client/'
-}))
 
 const targetFolder = path.resolve(__dirname, "../client/");
 utils.getFiles(targetFolder).forEach(file => {
@@ -168,6 +174,24 @@ utils.getFiles(targetFolder).forEach(file => {
 webpackConfig.plugins.push(new OptimizeCSSPlugin({
 	cssProcessorOptions: {
 		safe: true
+	}
+}))
+
+webpackConfig.plugins.push(new OfflinePlugin({
+	caches: {
+		main: [/\.js$/, /\.css$/, /\.(png|jpe?g|gif|svg)(\?.*)?$/],
+		additional: [/\.(woff2?|eot|ttf|otf)(\?.*)?$/, /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/],
+		optional: []
+	},
+	relativePaths: false,
+	ServiceWorker: {
+		minify: true,
+		cacheName : "Housepecker",
+		navigateFallbackURL : "/",
+		events: true
+	},
+	AppCache: {
+		events: true
 	}
 }))
 
