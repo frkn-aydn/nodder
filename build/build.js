@@ -1,7 +1,7 @@
 // Dependencies
 const ora       =   require('ora');
 const webpack   =   require("webpack");
-
+const chalk     =   require("chalk")
 // Config files
 const wpConfig  =   require("./webpack.prod.conf.js")
 
