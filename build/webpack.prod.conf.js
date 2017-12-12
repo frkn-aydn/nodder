@@ -182,8 +182,8 @@ webpackConfig.plugins.push(new OptimizeCSSPlugin({
 webpackConfig.plugins.push(new OfflinePlugin({
 	safeToUseOptionalCaches : true,
 	caches: {
-		main: [/\.js$/, /\.css$/, /\.(png|jpe?g|gif|svg)(\?.*)?$/],
-		additional: [/\.(woff2?|eot|ttf|otf)(\?.*)?$/, /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/],
+		main: [/\.js$/, /\.css$/, /\.(png|jpe?g|gif|svg)(\?.*)?$/, /\.(woff2?|eot|ttf|otf)(\?.*)?$/, /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/],
+		additional: [],
 		optional: []
 	},
 	relativePaths: false,
