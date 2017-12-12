@@ -16,6 +16,8 @@ yarn.lock
 *.ntvs*
 *.njsproj
 *.sln
+.env
+package-lock.json
 
 #Webpack output
 server/public
