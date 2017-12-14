@@ -8,6 +8,7 @@ const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
+const StyleExtHtmlWebpackPlugin = require("style-ext-html-webpack-plugin")
 const path = require("path");
 const fs = require("fs")
 //  Useful functions
@@ -197,5 +198,7 @@ webpackConfig.plugins.push(new OfflinePlugin({
 		events: true
 	}
 }))
+
+webpackConfig.plugins.push(new StyleExtHtmlWebpackPlugin())
 
 module.exports = webpackConfig
